@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>포스트 상세</title>
+</head>
+<body>
+    <div class="container">
+        <h1>포스트 상세</h1>
+        
+        <div class="post-detail">
+            <h2 class="post-title" th:text="${post.title}">포스트 제목</h2>
+            <div class="post-body" th:text="${post.body}">포스트 내용</div>
+        </div>
+        
+        <div class="actions">
+            <a th:href="@{/mvc/posts}" class="btn">목록으로</a>
+            <a th:href="@{/mvc/posts/{id}/edit(id=${post.id})}" class="btn">수정</a>
+        </div>
+    </div>
+</body>
+</html> 

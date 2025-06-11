@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf 모델 예제</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Thymeleaf 모델 예제</h1>
+        
+        <div class="section">
+            <h2>1. 단순 텍스트 출력</h2>
+            <p>메시지: <span th:text="${message}" class="highlight">메시지 내용</span></p>
+        </div>
+        
+        <div class="section">
+            <h2>2. 날짜 포맷팅</h2>
+            <p>현재 시간: <span th:text="${#temporals.format(currentTime, 'yyyy-MM-dd HH:mm:ss')}" class="highlight">2023-01-01 12:00:00</span></p>
+        </div>
+        
+        <div class="section">
+            <h2>3. 객체 속성 접근</h2>
+            <p>사용자 이름: <span th:text="${user.name}" class="highlight"></span></p>
+            <p>사용자 이메일: <span th:text="${user.email}" class="highlight"></span></p>
+        </div>
+
+    </div>
+</body>
+</html> 
