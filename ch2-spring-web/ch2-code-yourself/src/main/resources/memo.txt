@@ -1,0 +1,27 @@
+// 개발자 모드에서 spring-boot-devtools를 쓰겠다는 선언
+// 단 불안정성도 있음
+developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+일부 라이브러리는 버전을 명시해야만 가져올 수 있는 경우도 있음
+
+
+
+application.yml 설정
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+
++ 인텔리제이 고급설정 - allow auto 뭐시기
+이러면 알아서 코드 바꿀 때마다 재시작
+
+
+
+
+implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+<html xmlns:th="http://www.thymeleaf.org">
