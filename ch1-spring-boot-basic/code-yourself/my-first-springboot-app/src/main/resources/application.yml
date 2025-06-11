@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: my-first-springboot-app
+    version: 1.0.0
+  profiles:
+    active: dev
+    # profile active가 있으면 모드를 전환할 수 있다
+    # active 값이 dev면 application-dev.yml을 자동으로 읽는다
+server:
+  port: 8080
+app:
+  name: 스프링부트 연습 프로젝트
+  version: 1.0.0
+  message: Hello from YML!
+  
+# 프로파일
