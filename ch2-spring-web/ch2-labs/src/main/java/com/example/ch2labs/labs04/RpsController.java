@@ -10,6 +10,9 @@ import java.util.Map;
 
 @Controller
 public class RpsController {
+    enum RPS = {
+            ROCK
+    }
 
     @GetMapping("/rps")
     @ResponseBody
