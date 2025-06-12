@@ -17,21 +17,13 @@ public class RpsController {
         Map<String, String> response = new HashMap<>();
 
         int comRps = (int) Math.floor(Math.random() * 3 + 1);
-        String server = "";
 
-        switch (comRps) {
-            case 1:
-                server = "rock";
-                break;
-            case 2:
-                server = "scissors";
-                break;
-            case 3:
-                server = "paper";
-                break;
-            default:
-                server = "error";
-        }
+        String server = switch (comRps) {
+            case 1 -> "rock";
+            case 2 -> "scissors";
+            case 3 -> "paper";
+            default -> "error";
+        };
 
         String result = "";
 
