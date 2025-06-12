@@ -53,7 +53,9 @@ public class RpsController {
         response.put("server", server);
         response.put("result", result);
 
-
         return response;
+        
+        
+        // Map<> 방식이 아니라 클래스 방식으로 내보내면 순서를 의도대로 정할 수 있다
     }
 }
