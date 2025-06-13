@@ -20,6 +20,9 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    testImplementation 'io.projectreactor:reactor-test'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -28,6 +31,13 @@ dependencies {
     // 개발자 모드에서 spring-boot-devtools를 쓰겠다는 선언
     // 단 불안정성도 있음
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    
+    // 입력값 검증용 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Spring Reactive web == webflux
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 tasks.named('test') {

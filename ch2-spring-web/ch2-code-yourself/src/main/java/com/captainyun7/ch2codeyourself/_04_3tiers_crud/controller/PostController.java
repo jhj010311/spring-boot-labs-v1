@@ -1,13 +1,13 @@
 package com.captainyun7.ch2codeyourself._04_3tiers_crud.controller;
 
+import com.captainyun7.ch2codeyourself._04_3tiers_crud.dto.PostCreateRequest;
 import com.captainyun7.ch2codeyourself._04_3tiers_crud.dto.PostResponse;
+import com.captainyun7.ch2codeyourself._04_3tiers_crud.dto.PostUpdateRequest;
 import com.captainyun7.ch2codeyourself._04_3tiers_crud.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,7 +44,11 @@ public class PostController {
     // @AllArgsConstructor도 autowire는 해준다
 
     // 1. 클라이언트가 요청을 한다
-    // 2. 컨트롤러가 서비스에게 일을 시킨다
+    // 2. 컨트롤러가 서비스에게 일을 시킨다(위임)
+    // 3. 서비스가 레포지토리에게 일을 위임한다
+    // 4. 레포지토리가 서비스에 데이터를 전달한다
+    // 5. 서비스가 컨트롤러에게 데이터를 전달한다
+    // 6. 컨트롤러가 클라이언트에게 데이터를 전달한다
     /*
     @GetMapping("/{id}")
     public Post getPost(@PathVariable Long id) {
@@ -73,9 +77,35 @@ public class PostController {
         return ResponseEntity.ok(postService.getPost(id));
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<PostResponse>> getAllPosts() {
 
         return ResponseEntity.ok(postService.getAllPosts());
+    }
+
+
+    // Post 요청, 게시글 등록
+    @PostMapping
+    public ResponseEntity<PostResponse> createPost(@RequestBody PostCreateRequest request) {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.createPost(request));
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PostResponse> updatePost(@PathVariable Long id, @RequestBody PostUpdateRequest request) {
+
+        return ResponseEntity.ok(postService.updatePost(id, request));
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+        // Void 객체타입
+
+        postService.deletePost(id);
+
+        // 204 NO CONTENT
+        return ResponseEntity.noContent().build();
     }
 }
