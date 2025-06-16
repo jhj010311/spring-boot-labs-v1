@@ -7,10 +7,10 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint(validatedBy = TimeValidator.class)
-@Target({ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidTimeRange {
-    String error() default "시작 시간은 종료 시간보다 이전이어야 합니다.";
+    String message() default "시작 시간은 종료 시간보다 이전이어야 합니다.";
 
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

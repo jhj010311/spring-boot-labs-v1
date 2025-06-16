@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ch3codeyourself.mapper.PostMapper">
+    <!-- SQL 작성 -->
+    <!-- id는 매퍼클래스의 메서드명, parameterType은 매퍼쪽에서 넘겨주는 도메인의 전체경로명 -->
+    <insert id="save" parameterType="com.example.ch3codeyourself.domain.Post" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO posts (title, body)
+        VALUES (#{title}, #{body})
+    </insert>
+
+    <!--  select로 테이블을 가져오는 경우 resultType으로 결과타입을 지정해야함  -->
+    <!--  리스트화는 자동으로 해줌  -->
+    <select id="findAll" resultType="com.example.ch3codeyourself.domain.Post">
+        SELECT * FROM posts
+    </select>
+
+    <select id="search" parameterType="com.example.ch3codeyourself.dto.PostSearchRequest" resultType="com.example.ch3codeyourself.domain.Post">
+        SELECT * FROM posts
+        <where>
+            <if test="keyword != null and keyword != ''">
+                 (title Like concat('%', #{keyword}, '%'))
+            </if>
+        </where>
+        limit #{size}
+        OFFSET #{offset}
+    </select>
+
+    <select id="count" parameterType="com.example.ch3codeyourself.dto.PostSearchRequest" resultType="int">
+        SELECT count(*) FROM posts
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (title Like concat('%', #{keyword}, '%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="findOne" resultType="com.example.ch3codeyourself.domain.Post">
+        select * from posts
+        where id = #{id}
+    </select>
+
+    <update id="edit" parameterType="com.example.ch3codeyourself.domain.Post">
+        update posts
+        set title = #{title},
+            body = #{body}
+        where id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="Long">
+        delete from posts
+        where id = #{id}
+    </delete>
+</mapper>
