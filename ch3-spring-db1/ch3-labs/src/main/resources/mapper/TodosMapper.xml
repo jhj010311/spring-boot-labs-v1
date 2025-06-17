@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ch3labs.todos.TodosMapper">
+    <insert id="save" parameterType="com.example.ch3labs.todos.Todos" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO todos (title, completed)
+        VALUES (#{title}, #{completed})
+    </insert>
+</mapper>

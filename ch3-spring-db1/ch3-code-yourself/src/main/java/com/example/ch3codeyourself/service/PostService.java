@@ -14,7 +14,6 @@ public class PostService {
 
     // MyBatis mapper
     private final PostMapper mapper;
-    private final PostMapper postMapper;
 
     public PostResponse createPost(PostCreateRequest request) {
         // 서비스 - 레포지토리 - db 사이에선 DTO보단 도메인으로 넘겨주기
@@ -60,7 +59,7 @@ public class PostService {
         List<PostResponse> posts = mapper.search(search).stream()
                 .map(post -> PostResponse.from(post)).toList();
 
-        int count = postMapper.count(search);
+        int count = mapper.count(search);
 
         return PostPageResponse.from(posts, search, count);
     }

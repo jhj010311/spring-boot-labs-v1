@@ -1,4 +1,4 @@
-## Todo list API - CRUD
+    ## Todo list API - CRUD
 
 - Todo list API 서버를 MyBatis를 활용해 만들어 보세요.
 - 이전 labs에서 작업하던 Todo list에서 DB 연동 방법을 변경하면 됩니다. 
