@@ -7,4 +7,25 @@
         INSERT INTO todos (title, completed)
         VALUES (#{title}, #{completed})
     </insert>
+
+    <select id="search" parameterType="com.example.ch3labs.todos.TodosSearchRequest" resultType="com.example.ch3labs.todos.Todos">
+        SELECT * FROM todos
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (title Like concat('%', #{keyword}, '%'))
+            </if>
+        </where>
+    </select>
+
+    <update id="edit" parameterType="com.example.ch3labs.todos.Todos">
+        update todos
+        set title = #{title},
+            completed = #{completed}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from todos
+        where id = #{id}
+    </delete>
 </mapper>
