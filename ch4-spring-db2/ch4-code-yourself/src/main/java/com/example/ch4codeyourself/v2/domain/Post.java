@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity // jpa에선 이 어노테이션이 필요하다
+//@Entity // jpa에선 이 어노테이션이 필요하다
 @Table(name = "posts")  // table과 이름을 통해 매칭시킨다
 public class Post {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

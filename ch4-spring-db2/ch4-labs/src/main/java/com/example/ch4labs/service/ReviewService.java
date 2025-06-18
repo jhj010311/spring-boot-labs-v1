@@ -1,11 +1,12 @@
 package com.example.ch4labs.service;
 
 import com.example.ch4labs.domain.Review;
-import com.example.ch4labs.dto.ReviewCreateRequest;
-import com.example.ch4labs.dto.ReviewResponse;
-import com.example.ch4labs.dto.ReviewUpdateRequest;
+import com.example.ch4labs.dto.*;
 import com.example.ch4labs.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,5 +47,39 @@ public class ReviewService {
 
     public void deletePost(Long id) {
         repo.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public ReviewPageResponse search(ReviewSearchRequest search) {
+        Pageable pageable = PageRequest.of(search.getPage(), search.getSize());
+        Page<Review> result = null;
+
+        if(search.getBookTitle() != null && !search.getBookTitle().isBlank()
+                && search.getAuthor() != null && !search.getAuthor().isBlank()
+                && search.getMinRating() != null && search.getMaxRating() != null) {
+
+            result = repo.findByBookTitleContainingAndAuthorAndRatingGreaterThanEqualAndRatingLessThanEqual(
+                    search.getBookTitle(), search.getAuthor(), search.getMinRating(), search.getMaxRating(), pageable);
+
+        } else if(search.getBookTitle() != null && !search.getBookTitle().isBlank()) {
+
+            result = repo.findByBookTitleContaining(search.getBookTitle(), pageable);
+
+        } else if (search.getAuthor() != null && !search.getAuthor().isBlank()
+                && search.getRating() != null) {
+
+            result = repo.findByAuthorAndRating(search.getAuthor(), search.getRating(), pageable);
+
+        } else if (search.getMinRating() != null && search.getMaxRating() != null) {
+
+            result = repo.findByRatingGreaterThanEqualAndRatingLessThanEqual(search.getMinRating(), search.getMaxRating(), pageable);
+
+        } else {
+            result = repo.findAll(pageable);
+        }
+
+        Page<ReviewResponse> reviews = result.map(ReviewResponse::from);
+
+        return ReviewPageResponse.from(reviews.getContent(), search, reviews.getTotalElements());
     }
 }

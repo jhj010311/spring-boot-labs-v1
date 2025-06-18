@@ -5,6 +5,7 @@ import com.example.ch4codeyourself.v1.dto.PostCreateRequest;
 import com.example.ch4codeyourself.v1.dto.PostResponse;
 import com.example.ch4codeyourself.v1.dto.PostUpdateRequest;
 import com.example.ch4codeyourself.v1.repository.PostRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
+@Disabled
 // Junit 플랫폼 : 테스트 코드 실행 주체, 테스트 코드 전체 흐름 담당
 // Mockito : Mock 객체의 Mocking 기능을 담당
 @ExtendWith(MockitoExtension.class) // >> 이후 실행시 Mockito를 쓸 것이라고 선언

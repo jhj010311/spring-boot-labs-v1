@@ -1,10 +1,9 @@
 package com.example.ch4labs.controller;
 
-import com.example.ch4labs.dto.ReviewCreateRequest;
-import com.example.ch4labs.dto.ReviewResponse;
-import com.example.ch4labs.dto.ReviewUpdateRequest;
+import com.example.ch4labs.dto.*;
 import com.example.ch4labs.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +23,11 @@ public class ReviewsController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReviewResponse>> getAll() {
+    /*public ResponseEntity<List<ReviewResponse>> getAll() {
         return ResponseEntity.ok(service.getAllReviews());
+    }*/
+    public ResponseEntity<ReviewPageResponse> searchReviews(ReviewSearchRequest request) {
+        return ResponseEntity.ok(service.search(request));
     }
 
     @PutMapping("/{id}")

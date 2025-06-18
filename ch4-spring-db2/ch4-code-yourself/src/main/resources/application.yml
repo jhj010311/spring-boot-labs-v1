@@ -6,7 +6,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -17,3 +17,6 @@ spring:
 #       dialect: 유저가 쓰는 sql문을 jpa가 postgre에 맞게 변환
 #       format_sql: sql문을 좀 더 보기 좋게 변환
 #   show-sql: 어떻게 sql이 나가는지 보여줌
+
+
+#     ddl-auto: create
