@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/post_db
+    username: root
+    password: pass1234
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+      show-sql: true
+      
+#     ddl-auto: none이어야 배포시에 안전, create를 쓸 경우 create table ** 을 하지 않아도 알아서 생성해줌
+#       dialect: 유저가 쓰는 sql문을 jpa가 postgre에 맞게 변환
+#       format_sql: sql문을 좀 더 보기 좋게 변환
+#   show-sql: 어떻게 sql이 나가는지 보여줌
