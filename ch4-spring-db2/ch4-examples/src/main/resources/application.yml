@@ -11,8 +11,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        format-sql: true
     show-sql: true
-    format-sql: true
+
 
   devtools:
     restart:

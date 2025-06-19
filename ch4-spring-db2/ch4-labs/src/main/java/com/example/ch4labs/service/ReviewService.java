@@ -49,6 +49,7 @@ public class ReviewService {
         repo.deleteById(id);
     }
 
+    /*
     @Transactional(readOnly = true)
     public ReviewPageResponse search(ReviewSearchRequest search) {
         Pageable pageable = PageRequest.of(search.getPage(), search.getSize());
@@ -81,5 +82,18 @@ public class ReviewService {
         Page<ReviewResponse> reviews = result.map(ReviewResponse::from);
 
         return ReviewPageResponse.from(reviews.getContent(), search, reviews.getTotalElements());
+    }
+
+     */
+
+    @Transactional(readOnly = true)
+    public ReviewPageResponse search(ReviewSearchRequest search) {
+        Pageable pageable = PageRequest.of(search.getPage(), search.getSize());
+
+        Page<ReviewResponse> result = repo.search(search);
+
+
+
+        return ReviewPageResponse.from(result.getContent(), search, result.getTotalElements());
     }
 }

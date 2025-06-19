@@ -10,8 +10,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-      show-sql: true
+        format-sql: true
+    show-sql: true
+
       
 #     ddl-auto: none이어야 배포시에 안전, create를 쓸 경우 create table ** 을 하지 않아도 알아서 생성해줌
 #       dialect: 유저가 쓰는 sql문을 jpa가 postgre에 맞게 변환
