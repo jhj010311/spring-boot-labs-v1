@@ -60,7 +60,7 @@ public class ReviewSearchRequest {
 ---
 
 ### 5. 최종 Controller 예시
-  
+
 ```java
 @GetMapping("/reviews")
 public Page<ReviewResponse> searchReviews(@ModelAttribute ReviewSearchRequest request) {
