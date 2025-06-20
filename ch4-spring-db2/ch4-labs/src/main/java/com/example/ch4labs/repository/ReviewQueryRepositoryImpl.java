@@ -2,8 +2,8 @@ package com.example.ch4labs.repository;
 
 import com.example.ch4labs.domain.QReview;
 import com.example.ch4labs.domain.Review;
-import com.example.ch4labs.dto.ReviewResponse;
-import com.example.ch4labs.dto.ReviewSearchRequest;
+import com.example.ch4labs.dto.review.ReviewResponse;
+import com.example.ch4labs.dto.review.ReviewSearchRequest;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQueryFactory;

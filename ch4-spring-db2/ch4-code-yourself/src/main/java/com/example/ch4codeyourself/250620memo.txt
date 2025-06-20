@@ -1,0 +1,47 @@
+10시
+
+@OneToMany의 옵션
+cascade = CascadeType.ALL : 연관된 모든 테이블의 연계되어있는 데이터를 함께 삭제
+orphanRemoval = true : 부모가 없는 자식 데이터를 삭제
+
+
+게시글 단계에서의 lazy 전략으로는 일반적으로 댓글 페이징 처리가 자동으로 되지 않음
+
+
+
+
+12시
+대댓글 작업 개시(v5)
+
+
+2시
+@Builder.Default
+빌더 패턴으로 만들 때도 dto 자체적인 디폴트값을 적용시켜줌
+
+
+3시
+단일데이터를 가져오는 정도는 LAZY, EAGER 전략으로도 문제가 없다
+
+그러나 설계에 따라선 N+1 문제가 생길 수 있다
+>> 성능 최적화 전략 필요
+- @Batch // 약간만 가능
+- Fetch Join
+- @EntityGraph
+- DTO Projection
+
+
+
+
+4시
+N+1문제를 비롯한 fetch전략 예시들
+examples v6(이 시점에 아직 깃 업데이트 안 됨)
+
+- JPQL에서 Fetch Join // join이 필요한 경우 미리 join시켜서 쿼리문 발생 갯수 자체를 압축
+- @EntityGraph //
+- DTO Projection // JPQL을 통해 DTO를 직접 개입시켜 세세하게 받아올 컬럼을 지정, 전체가 아닌 일부를 조회하는 것이다보니 실행속도 자체가 빠름
+
+
+
+
+
+작업 흐름도 적고 싶은데 빨라서 적을 틈이 안 난다

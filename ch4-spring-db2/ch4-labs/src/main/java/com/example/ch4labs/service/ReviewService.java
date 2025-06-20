@@ -1,7 +1,10 @@
 package com.example.ch4labs.service;
 
+import com.example.ch4labs.domain.Comment;
 import com.example.ch4labs.domain.Review;
-import com.example.ch4labs.dto.*;
+import com.example.ch4labs.dto.comment.CommentResponse;
+import com.example.ch4labs.dto.review.*;
+import com.example.ch4labs.repository.CommentRepository;
 import com.example.ch4labs.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,21 +22,22 @@ import java.util.NoSuchElementException;
 public class ReviewService {
 
     private final ReviewRepository repo;
+    private final CommentRepository comRepo;
 
-    public ReviewResponse createPost(ReviewCreateRequest request) {
+    public ReviewResponse createReview(ReviewCreateRequest request) {
         Review post = request.toDomain();
         Review saved = repo.save(post);
         return ReviewResponse.from(saved);
     }
 
-    @Transactional(readOnly = true)
+    /*@Transactional(readOnly = true)
     public List<ReviewResponse> getAllReviews() {
         return repo.findAll().stream()
                 .map(ReviewResponse::from)
                 .toList();
-    }
+    }*/
 
-    public ReviewResponse updatePost(Long id, ReviewUpdateRequest request) {
+    public ReviewResponse updateReview(Long id, ReviewUpdateRequest request) {
         Review review = repo.findById(id).orElseThrow(() -> new NoSuchElementException("리뷰글이 존재하지 않습니다."));
         review.setTitle(request.getTitle());
         review.setContent(request.getContent());
@@ -95,5 +99,14 @@ public class ReviewService {
 
 
         return ReviewPageResponse.from(result.getContent(), search, result.getTotalElements());
+    }
+
+    public ReviewWithCommentsResponse getReviewById(Long id) {
+        Review review = repo.findById(id).orElseThrow(NoSuchElementException::new);
+
+        Page<Comment> commentPage = comRepo.findByReviewId(review.getId(), PageRequest.of(0, 50));
+        Page<CommentResponse> map = commentPage.map(CommentResponse::from);
+
+        return ReviewWithCommentsResponse.from(review, map);
     }
 }

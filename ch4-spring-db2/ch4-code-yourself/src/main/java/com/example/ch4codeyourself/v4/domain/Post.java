@@ -32,7 +32,7 @@ public class Post {
 
     // 포함관계 어노테이션
     // mappedBy : 상대측의 "컬럼명"이 일치하는 것과 매칭하겠다
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
     
     // 우리가 제어할 수 없이 jpa가 관리하기 때문에 편리하지만

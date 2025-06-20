@@ -1,4 +1,4 @@
-package com.example.ch4labs.dto;
+package com.example.ch4labs.dto.review;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

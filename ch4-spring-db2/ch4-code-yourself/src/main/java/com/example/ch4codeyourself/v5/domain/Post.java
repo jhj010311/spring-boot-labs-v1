@@ -1,5 +1,6 @@
-package com.example.ch4labs.domain;
+package com.example.ch4codeyourself.v5.domain;
 
+import com.example.ch4codeyourself.v5.domain.Comment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,22 +16,19 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "reviews")
-public class Review {
+@Entity // DB의 테이블과 매핑 (posts)
+@Table(name = "posts")
+public class Post {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
+    private Long id;
     private String title;
-    private String content;
+    private String body;
+
     private String author;
-    private String bookTitle;
-    private String bookAuthor;
-    private int rating;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 }
