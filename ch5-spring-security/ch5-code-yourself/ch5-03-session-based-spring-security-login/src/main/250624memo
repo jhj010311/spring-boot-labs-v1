@@ -1,0 +1,43 @@
+10시
+패스워드 인코더 - 필수
+시큐리티 콘피그 클래스에서 등록
+
+@Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
+
+@PreAuthorize("hasRole('ADMIN')")
+public class AdminController {
+
+인가의 기준을 어노테이션을 통해 처리
+
+
+로그인 처리를 위해 Auth 시리즈 코딩
+
+
+// TODO: [3] 인증에 성공하면 SecurityContext에 인증 정보를 저장합니다.
+SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
+
+
+11시
+
+public class UserDetailsServiceImpl implements UserDetailsService
+
+스프링 시큐리티가 제공하는 UserDetailsService 인터페이스를 구현
+
+
+
+debug 컨트롤러에 접속해봐도 제대로 로그인된 상태라면 나올 이름과 권한명이 anonymous로 뜬다
+>> Security Config에 추가작업
+
+필터체인
+// TODO: [2] 세션 관리 설정을 합니다.
+
+
+로그아웃 처리에 필요한 것들
+위임 방식으로 진행해야하니 뭐가 필요한지만 알면 대신 해줌

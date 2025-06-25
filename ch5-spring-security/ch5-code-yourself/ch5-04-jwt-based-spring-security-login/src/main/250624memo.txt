@@ -1,0 +1,12 @@
+12시
+
+세션방식이 아닌 토큰방식 시큐리티 시작
+
+
+시큐리티 콘피그
+private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+
+JwtUtil의 doGenerateToken 작업
+
+RefreshTokenService의 createRefreshToken 작업

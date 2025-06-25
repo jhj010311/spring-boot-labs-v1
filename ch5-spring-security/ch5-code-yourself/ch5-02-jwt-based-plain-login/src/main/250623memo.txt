@@ -1,0 +1,82 @@
+11시
+
+기본적으로 로그인시 비밀번호는 dto에 넣으면 안 된다
+
+- 회원가입
+AuthController - AuthService 작업
+service-repository 자동메서드 생성
+auth service - user service 연계로 회원가입 작성
+
+포스트맨으로 테스트 진행
+{
+    "username" : "newuser",
+    "password" : "user123",
+    "email" : "newuser@example.com"
+}
+
+응답
+{
+    "id": 5,
+    "username": "newuser",
+    "email": "newuser@example.com",
+    "role": "USER"
+}
+
+
+
+
+- 로그인 세션
+auth controll - auth serv - user serv - user repo
+
+
+
+
+- 인가
+필터를 통해 작용
+
+필터 클래스의 변수
+private static final List<String> PUBLIC_PATHS = Arrays.asList(
+            "/swagger-ui",
+            "/v3/api-docs",
+            "/swagger-resources/**",
+            "/api/auth/login",
+            "/api/auth/register",
+            "/h2-console"
+    );
+로그인하지 않은 사람도 진입할 수 있도록 url 오픈 준비
+
+필터는 톰캣의 서블릿 컨테이너 단계에서 실행
+
+모든 요청에 대해 필터가 먼저 작동
+
+
+
+
+
+
+2시
+인터셉터 마무리
+WebConfig에 인터셉터를 추가해줘야 함
+
+AuthorizationInterceptor에 @Component
+WebConfig에 @Configuration
+
+
+config 폴더에 JwtUtil 클래스 제작
+세션 관련 코드는 삭제
+
+application.yml에 jwt:secret:을 추가
+
+
+
+3시
+
+LoginResponse 제작
+
+
+postman에서 Params와 Header 사이의 Auth탭에서 "Bearer Token" 선택
+그 후 로그인시 받은 토큰을 입력하면 로그인한 것처럼 사용 가능
+
+
+4시
+스프링 시큐리티 개요
