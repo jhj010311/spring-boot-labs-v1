@@ -1,8 +1,8 @@
-package com.captainyun7.ch503sessionbasedspringsecuritylogin.controller;
+package com.captainyun7.ch505oauthspringsecuritylogin.controller;
 
-import com.captainyun7.ch503sessionbasedspringsecuritylogin.dto.UserResponse;
-import com.captainyun7.ch503sessionbasedspringsecuritylogin.service.AuthService;
-import com.captainyun7.ch503sessionbasedspringsecuritylogin.service.UserService;
+import com.captainyun7.ch505oauthspringsecuritylogin.dto.UserResponse;
+import com.captainyun7.ch505oauthspringsecuritylogin.service.AuthService;
+import com.captainyun7.ch505oauthspringsecuritylogin.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,13 +27,11 @@ public class UserController {
     }
     
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
     
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }

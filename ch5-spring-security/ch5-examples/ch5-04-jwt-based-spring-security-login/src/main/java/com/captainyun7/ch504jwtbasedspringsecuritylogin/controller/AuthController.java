@@ -1,9 +1,7 @@
-package com.captainyun7.ch503sessionbasedspringsecuritylogin.controller;
+package com.captainyun7.ch504jwtbasedspringsecuritylogin.controller;
 
-import com.captainyun7.ch503sessionbasedspringsecuritylogin.dto.LoginRequest;
-import com.captainyun7.ch503sessionbasedspringsecuritylogin.dto.SignUpRequest;
-import com.captainyun7.ch503sessionbasedspringsecuritylogin.dto.UserResponse;
-import com.captainyun7.ch503sessionbasedspringsecuritylogin.service.AuthService;
+import com.captainyun7.ch504jwtbasedspringsecuritylogin.dto.*;
+import com.captainyun7.ch504jwtbasedspringsecuritylogin.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -32,14 +30,20 @@ public class AuthController {
     }
     
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
-        UserResponse userResponse = authService.login(loginRequest);
-        return ResponseEntity.ok(userResponse);
+    public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+        JwtResponse jwtResponse = authService.login(loginRequest);
+        return ResponseEntity.ok(jwtResponse);
     }
-
+    
+    @PostMapping("/refreshtoken")
+    public ResponseEntity<TokenRefreshResponse> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {
+        String newAccessToken = authService.refreshAccessToken(request.getRefreshToken());
+        return ResponseEntity.ok(new TokenRefreshResponse(newAccessToken, request.getRefreshToken()));
+    }
+    
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
-        authService.logout(request, response);
+    public ResponseEntity<Void> logout() {
+        authService.logout();
         return ResponseEntity.ok().build();
     }
 } 

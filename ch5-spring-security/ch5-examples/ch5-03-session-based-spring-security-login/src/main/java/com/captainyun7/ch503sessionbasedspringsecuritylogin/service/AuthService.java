@@ -4,6 +4,8 @@ import com.captainyun7.ch503sessionbasedspringsecuritylogin.domain.User;
 import com.captainyun7.ch503sessionbasedspringsecuritylogin.dto.LoginRequest;
 import com.captainyun7.ch503sessionbasedspringsecuritylogin.dto.SignUpRequest;
 import com.captainyun7.ch503sessionbasedspringsecuritylogin.dto.UserResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,20 +42,26 @@ public class AuthService {
     }
 
     public UserResponse login(LoginRequest loginRequest) {
+        // TODO: [2] AuthenticationManager를 사용하여 사용자를 인증합니다.
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(),
                 loginRequest.getPassword()
             )
         );
-        
+        // TODO: [3] 인증에 성공하면 SecurityContext에 인증 정보를 저장합니다.
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        
+
+        // TODO: [4] 인증된 사용자 정보를 반환합니다.
         return userService.getUserResponseByUsername(loginRequest.getUsername());
     }
 
-    public void logout() {
-        SecurityContextHolder.clearContext();
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        // TODO: [5] SecurityContext에서 인증 정보를 제거하여 로그아웃 처리합니다.
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
     }
 
     public User getCurrentUser() {
