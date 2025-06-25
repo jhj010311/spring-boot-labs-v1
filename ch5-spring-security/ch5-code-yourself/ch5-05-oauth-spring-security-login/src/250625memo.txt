@@ -1,0 +1,60 @@
+10시
+
+OAuth든 OpenId든
+사실 인증의 큰 부분을 우리 프로그램이 아닌 외부로 넘겼을 뿐
+전체적인 흐름은 이전의 자체 보안과 크게 다르진 않으므로
+인증을 하는 순서를 위주로 익힐 것
+
+
+
+어제의 프로젝트에 비해 handler와 OAuth2Service가 추가됨
+
+
+build.gradle
+// TODO : OAuth, OIDC 사용을 위한 의존성 추가
+implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+
+application.yml
+  security:
+    oauth2:
+      client:
+에 담긴 내용들
+
+
+https://console.cloud.google.com/
+Google 인증 플랫폼
+
+
+
+
+11시
+
+인증 비밀번호는 중요하니 깃허브에 막 올리지 말고 테스트 후 파기할 것
+
+
+security config
+// TODO : OIDC 설정
+
+
+OAuth2UserServiceImpl
+실제로 외부 로그인을 담당하는 서비스
+
+
+User 도메인
+연동을 위해 OAuth2 관련 필드를 추가
+변경이 있을 수 있음
+
+
+SuccessHandler 작업
+인증서버에서 사용자 정보를 받았다면 db화한 다음 토큰을 생성해서 유저에게 반환
+
+// TODO : 유저 정보 가져오기
+Object principal = authentication.getPrincipal();
+
+// TODO : JWT 토큰 생성
+작업함
+
+
+SecurityConfig에서 OIDC 설정 추가
+핸들러 2개 이후에 엔드포인트 2개 추가
